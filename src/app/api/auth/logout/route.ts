@@ -8,7 +8,8 @@ export async function POST(req: NextRequest) {
       await supabase.auth.signOut();
     }
     return NextResponse.json({ message: 'Logout successful' });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Internal server error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
