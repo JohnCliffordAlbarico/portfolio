@@ -30,7 +30,7 @@ const HeroSection = () => {
         </h1>
         
         <div className="text-xl md:text-2xl text-purple-200 mb-4">
-          Full Stack Developer & UI/UX Designer
+         Aspiring Full Stack Developer
         </div>
         
         <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
