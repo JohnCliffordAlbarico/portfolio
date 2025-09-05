@@ -63,11 +63,11 @@ export default function Sidebar({ activeSection, setActiveSection, sidebarItems 
                     ? 'text-white/80'
                     : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300'
                 }`}>
-                  {item.id === 'overview' && 'About & Stats'}
-                  {item.id === 'skills' && 'Technologies & Tools'}
-                  {item.id === 'projects' && 'My Work & Portfolio'}
-                  {item.id === 'experience' && 'Education & Journey'}
-                  {item.id === 'contact' && 'Get In Touch'}
+                  {item.id === 'overview' && "About & Stats"}
+                  {item.id === 'skills' && "Technologies & Tools"}
+                  {item.id === 'projects' && "My Work & Portfolio"}
+                  {item.id === 'experience' && "Education & Journey"}
+                  {item.id === 'contact' && "Get In Touch"}
                 </div>
               </div>
               {activeSection === item.id && (

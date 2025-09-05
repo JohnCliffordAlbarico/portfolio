@@ -126,11 +126,11 @@ export default function Home() {
                             ? 'text-white/80'
                             : 'text-gray-500 group-hover:text-gray-600'
                         }`}>
-                          {item.id === 'overview' && 'About & Stats'}
-                          {item.id === 'skills' && 'Technologies & Tools'}
-                          {item.id === 'projects' && 'My Work & Portfolio'}
-                          {item.id === 'experience' && 'Education & Journey'}
-                          {item.id === 'contact' && 'Get In Touch'}
+                          {item.id === 'overview' && "About & Stats"}
+                          {item.id === 'skills' && "Technologies & Tools"}
+                          {item.id === 'projects' && "My Work & Portfolio"}
+                          {item.id === 'experience' && "Education & Journey"}
+                          {item.id === 'contact' && "Get In Touch"}
                         </div>
                       </div>
                       {activeSection === item.id && (

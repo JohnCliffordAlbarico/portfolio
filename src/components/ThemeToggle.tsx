@@ -45,7 +45,7 @@ export default function ThemeToggle() {
       
       {/* Tooltip */}
       <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-        {theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+        {theme === 'light' ? "Switch to dark mode" : "Switch to light mode"}
       </div>
     </button>
   );

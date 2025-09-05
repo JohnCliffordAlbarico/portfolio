@@ -58,11 +58,11 @@ export default function SkillBar({ skill }: SkillBarProps) {
       
       {/* Skill level description */}
       <div className="mt-2 text-xs text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
-        {skill.level >= 90 && 'Expert Level'}
-        {skill.level >= 75 && skill.level < 90 && 'Advanced'}
-        {skill.level >= 50 && skill.level < 75 && 'Intermediate'}
-        {skill.level >= 25 && skill.level < 50 && 'Beginner'}
-        {skill.level < 25 && 'Learning'}
+        {skill.level >= 90 && "Expert Level"}
+        {skill.level >= 75 && skill.level < 90 && "Advanced"}
+        {skill.level >= 50 && skill.level < 75 && "Intermediate"}
+        {skill.level >= 25 && skill.level < 50 && "Beginner"}
+        {skill.level < 25 && "Learning"}
       </div>
     </div>
   );
