@@ -59,17 +59,13 @@ import Sidebar from '../../components/portfolio.page/Sidebar/page';
 import StatCard from '../../components/portfolio.page/Statcard/page';
 import SkillBar from '../../components/portfolio.page/SkillBar/page';
 import ProjectCard from '../../components/portfolio.page/ProjectCard/page';
+import ThemeToggle from '../../components/ThemeToggle';
+import TimeDisplay from '../../components/TimeDisplay';
 
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('overview');
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const skillsData = [
     // Programming Languages
@@ -478,8 +474,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
-      <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200 sticky top-0 z-40">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-4">
@@ -487,31 +483,27 @@ export default function Home() {
                 <Code2 className="w-6 h-6 text-white" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900">John Clifford M. Albarico</h1>
-                <p className="text-sm text-gray-500">Aspiring Full Stack Developer</p>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">John Clifford M. Albarico</h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Aspiring Full Stack Developer</p>
               </div>
               <div className="sm:hidden">
-                <h1 className="text-lg font-bold text-gray-900">John Clifford</h1>
-                <p className="text-xs text-gray-500">Full Stack Dev</p>
+                <h1 className="text-lg font-bold text-gray-900 dark:text-white">John Clifford</h1>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Full Stack Dev</p>
               </div>
             </div>
             
             <div className="flex items-center gap-4">
-              <div className="hidden md:block text-right">
-                <p className="text-sm font-medium text-gray-900">
-                  {currentTime.toLocaleTimeString()}
-                </p>
-                <p className="text-xs text-gray-500">
-                  {currentTime.toLocaleDateString()}
-                </p>
-              </div>
+              <TimeDisplay />
+              
+              {/* Theme Toggle */}
+              <ThemeToggle />
               
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMobileMenuOpen ? <X className="w-6 h-6 text-gray-900 dark:text-white" /> : <Menu className="w-6 h-6 text-gray-900 dark:text-white" />}
               </button>
             </div>
           </div>
@@ -521,14 +513,14 @@ export default function Home() {
       <div className="flex">
         {/* Desktop Sidebar */}
         <div className="hidden lg:block">
-          <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} sidebarItems={sidebarItems} />
+        <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} sidebarItems={sidebarItems} />
         </div>
         
         {/* Mobile Sidebar Overlay */}
         {isMobileMenuOpen && (
           <div className="lg:hidden fixed inset-0 z-50 flex">
             <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)}></div>
-            <div className="relative w-80 bg-gradient-to-b from-white via-gray-50 to-white shadow-2xl">
+            <div className="relative w-80 bg-gradient-to-b from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl transition-colors duration-300">
               {/* Mobile Sidebar Header */}
               <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
                 <div className="flex items-center justify-between mb-4">
