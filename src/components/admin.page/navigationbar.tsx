@@ -7,7 +7,11 @@ import {
   BarChart3, 
   FileText, 
   Calendar, 
-  Settings 
+  Settings,
+  Code2,
+  Briefcase,
+  GraduationCap,
+  Mail
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -25,7 +29,11 @@ interface NavigationBarProps {
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ sidebarOpen, setSidebarOpen, selectedTab, setSelectedTab }) => {
   const sidebarItems: SidebarItem[] = [
-    { id: 'users', label: 'Users', icon: Users },
+    { id: 'dashboard', label: 'Dashboard', icon: Home },
+    { id: 'skills', label: 'Skills', icon: Code2 },
+    { id: 'projects', label: 'Projects', icon: Briefcase },
+    { id: 'experience', label: 'Experience', icon: GraduationCap },
+    { id: 'contact', label: 'Contact', icon: Mail },
     { id: 'settings', label: 'Settings', icon: Settings }
   ];
 

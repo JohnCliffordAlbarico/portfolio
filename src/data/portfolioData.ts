@@ -39,8 +39,23 @@ import {
   Rocket,
   Eye
 } from 'lucide-react';
+import { skillsAPI, projectsAPI, experienceAPI, contactAPI } from '@/lib/api';
 
-export const skillsData = [
+// Icon mapping for dynamic icon resolution
+const iconMap: { [key: string]: any } = {
+  Terminal, Coffee, Code, Hexagon, FileText, Palette, Circle, Triangle, Square, 
+  Rocket, Diamond, Database, Cloud, Zap, Shield, Eye, GitBranch, Globe, Monitor, 
+  Server, Smartphone, CheckCircle, PlayCircle, PauseCircle, Mail, Phone, MapPin, 
+  Github, Linkedin, MessageCircle
+};
+
+// Helper function to get icon component from string
+export const getIconComponent = (iconName: string) => {
+  return iconMap[iconName] || Code;
+};
+
+// Static fallback data
+const fallbackSkillsData = [
   // Programming Languages
   { name: 'C Language', level: 85, category: 'Programming Languages', icon: Terminal },
   { name: 'Java', level: 80, category: 'Programming Languages', icon: Coffee },
@@ -71,7 +86,25 @@ export const skillsData = [
   { name: 'Git', level: 85, category: 'Monitoring & Tools', icon: GitBranch }
 ];
 
-export const projects = [
+// Dynamic skills data fetcher
+export const getSkillsData = async () => {
+  try {
+    const response = await skillsAPI.getAll();
+    return response.skills.map((skill: any) => ({
+      ...skill,
+      icon: getIconComponent(skill.icon)
+    }));
+  } catch (error) {
+    console.warn('Failed to fetch skills from API, using fallback data:', error);
+    return fallbackSkillsData;
+  }
+};
+
+// Export static data for immediate use (will be replaced by dynamic data)
+export const skillsData = fallbackSkillsData;
+
+// Static fallback data
+const fallbackProjects = [
   {
     id: 1,
     title: 'Portfolio Website',
@@ -122,6 +155,24 @@ export const projects = [
   }
 ];
 
+// Dynamic projects data fetcher
+export const getProjectsData = async () => {
+  try {
+    const response = await projectsAPI.getAll();
+    return response.projects.map((project: any) => ({
+      ...project,
+      icon: getIconComponent(project.icon),
+      statusIcon: getIconComponent(project.statusIcon)
+    }));
+  } catch (error) {
+    console.warn('Failed to fetch projects from API, using fallback data:', error);
+    return fallbackProjects;
+  }
+};
+
+// Export static data for immediate use (will be replaced by dynamic data)
+export const projects = fallbackProjects;
+
 export const sidebarItems = [
   { id: 'overview', label: 'Overview', icon: User },
   { id: 'skills', label: 'Skills', icon: Code2 },
@@ -131,13 +182,14 @@ export const sidebarItems = [
 ];
 
 export const recentActivities = [
-  { action: 'Completed', item: 'Portfolio Website Modernization', time: 'Just now', icon: Award },
-  { action: 'Updated', item: 'Skills & Technologies Section', time: 'Just now', icon: Code2 },
+  { action: 'Completed', item: 'Portfolio API Integration', time: 'Just now', icon: Award },
+  { action: 'Updated', item: 'Admin Dashboard with CRUD Operations', time: 'Just now', icon: Code2 },
   { action: 'Learning', item: 'Advanced React Patterns', time: 'This week', icon: BookOpen },
   { action: 'Planning', item: 'Full Stack Project Development', time: 'This month', icon: Globe }
 ];
 
-export const experienceData = [
+// Static fallback data
+const fallbackExperienceData = [
   {
     title: 'Self-Taught Full Stack Development',
     organization: 'Independent Learning',
@@ -168,18 +220,67 @@ export const experienceData = [
   }
 ];
 
-export const contactData = [
+// Dynamic experience data fetcher
+export const getExperienceData = async () => {
+  try {
+    const response = await experienceAPI.getAll();
+    return response.experience;
+  } catch (error) {
+    console.warn('Failed to fetch experience from API, using fallback data:', error);
+    return fallbackExperienceData;
+  }
+};
+
+// Export static data for immediate use (will be replaced by dynamic data)
+export const experienceData = fallbackExperienceData;
+
+// Static fallback data
+const fallbackContactData = [
   { icon: Mail, label: 'Email', value: 'johnclifford.albarico@email.com', href: 'mailto:johnclifford.albarico@email.com' },
   { icon: Phone, label: 'Phone', value: 'Available upon request', href: '#' },
   { icon: MapPin, label: 'Location', value: 'Philippines', href: '#' },
   { icon: Globe, label: 'Portfolio', value: 'johnclifford.dev', href: '#' }
 ];
 
-export const socialLinks = [
+const fallbackSocialLinks = [
   { icon: Github, label: 'GitHub', value: '@johnclifford', href: '#' },
   { icon: Linkedin, label: 'LinkedIn', value: '/in/johnclifford-albarico', href: '#' },
   { icon: MessageCircle, label: 'Discord', value: 'johnclifford#1234', href: '#' }
 ];
+
+// Dynamic contact data fetcher
+export const getContactData = async () => {
+  try {
+    const response = await contactAPI.getAll();
+    const contactItems = response.contact || [];
+    
+    const contacts = contactItems
+      .filter((item: any) => item.type === 'contact')
+      .map((item: any) => ({
+        ...item,
+        icon: getIconComponent(item.icon)
+      }));
+    
+    const socials = contactItems
+      .filter((item: any) => item.type === 'social')
+      .map((item: any) => ({
+        ...item,
+        icon: getIconComponent(item.icon)
+      }));
+    
+    return { contacts, socials };
+  } catch (error) {
+    console.warn('Failed to fetch contact data from API, using fallback data:', error);
+    return { 
+      contacts: fallbackContactData, 
+      socials: fallbackSocialLinks 
+    };
+  }
+};
+
+// Export static data for immediate use (will be replaced by dynamic data)
+export const contactData = fallbackContactData;
+export const socialLinks = fallbackSocialLinks;
 
 export const skillCategories = [
   { name: 'Programming Languages', icon: Code2, color: 'from-blue-500 to-cyan-500' },
@@ -189,3 +290,21 @@ export const skillCategories = [
   { name: 'Hosting & Deployment', icon: Cloud, color: 'from-indigo-500 to-blue-500' },
   { name: 'Monitoring & Tools', icon: Activity, color: 'from-yellow-500 to-orange-500' }
 ];
+
+// Helper function to refresh all data
+export const refreshPortfolioData = async () => {
+  const [skills, projects, experience, contact] = await Promise.all([
+    getSkillsData(),
+    getProjectsData(),
+    getExperienceData(),
+    getContactData()
+  ]);
+  
+  return {
+    skills,
+    projects,
+    experience,
+    contacts: contact.contacts,
+    socials: contact.socials
+  };
+};

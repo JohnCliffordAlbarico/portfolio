@@ -1,9 +1,50 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { Code2, Sparkles } from 'lucide-react';
 import SkillBar from '../SkillBar/page';
-import { skillsData, skillCategories } from '../../../data/portfolioData';
+import { getSkillsData, skillsData as fallbackSkillsData, skillCategories } from '../../../data/portfolioData';
 
 export default function SkillsSection() {
+  const [skillsData, setSkillsData] = useState(fallbackSkillsData);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const dynamicSkills = await getSkillsData();
+        setSkillsData(dynamicSkills);
+      } catch (error) {
+        console.error('Failed to fetch skills:', error);
+        // Keep fallback data if API fails
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSkills();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-50 rounded-xl p-6 border border-blue-100 animate-pulse">
+          <div className="h-6 bg-gray-200 rounded w-1/3 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+        </div>
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="animate-pulse">
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-2 bg-gray-200 rounded w-full"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Skills Header */}

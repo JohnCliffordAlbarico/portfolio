@@ -20,6 +20,10 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import NavigationBar from '../../components/admin.page/navigationbar';
 import TopHeader from '../../components/admin.page/topheader';
+import SkillsManager from '../../components/admin/SkillsManager';
+import ProjectsManager from '../../components/admin/ProjectsManager';
+import ExperienceManager from '../../components/admin/ExperienceManager';
+import ContactManager from '../../components/admin/ContactManager';
 
 const Admin = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -111,59 +115,51 @@ const Admin = () => {
           </div>
 
           {selectedTab === 'dashboard' && (
-            <>
-              {/* Manage Portfolio Section */}
+            <div className="space-y-8">
               <div className="bg-slate-800/30 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-semibold">Manage Portfolio</h3>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
-                    <Plus size={16} />
-                    Add Asset
-                  </button>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b border-white/10">
-                        <th className="text-left p-4 font-medium text-gray-300">Asset ID</th>
-                        <th className="text-left p-4 font-medium text-gray-300">Name</th>
-                        <th className="text-left p-4 font-medium text-gray-300">Value</th>
-                        <th className="text-left p-4 font-medium text-gray-300">Status</th>
-                        <th className="text-left p-4 font-medium text-gray-300">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                        <td className="p-4 font-mono text-sm">Coming Soon</td>
-                        <td className="p-4">Placeholder Asset</td>
-                        <td className="p-4 font-semibold">$0.00</td>
-                        <td className="p-4">
-                          <span className="px-3 py-1 rounded-full text-xs font-medium text-gray-400 bg-gray-400/10">
-                            Pending
-                          </span>
-                        </td>
-                        <td className="p-4">
-                          <div className="flex space-x-2">
-                            <button className="p-1 hover:bg-white/10 rounded transition-colors">
-                              <Eye size={16} />
-                            </button>
-                            <button className="p-1 hover:bg-white/10 rounded transition-colors">
-                              <Edit size={16} />
-                            </button>
-                            <button className="p-1 hover:bg-red-500/20 text-red-400 rounded transition-colors">
-                              <Trash2 size={16} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <h2 className="text-2xl font-bold mb-4">Portfolio Management Dashboard</h2>
+                <p className="text-gray-300 mb-6">
+                  Welcome to your portfolio admin panel. Use the navigation tabs to manage different sections of your portfolio.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-purple-600/20 rounded-lg p-4">
+                    <h3 className="font-semibold text-purple-300">Skills</h3>
+                    <p className="text-sm text-gray-400">Manage your technical skills and proficiency levels</p>
+                  </div>
+                  <div className="bg-blue-600/20 rounded-lg p-4">
+                    <h3 className="font-semibold text-blue-300">Projects</h3>
+                    <p className="text-sm text-gray-400">Add and update your portfolio projects</p>
+                  </div>
+                  <div className="bg-green-600/20 rounded-lg p-4">
+                    <h3 className="font-semibold text-green-300">Experience</h3>
+                    <p className="text-sm text-gray-400">Update your work and education history</p>
+                  </div>
+                  <div className="bg-orange-600/20 rounded-lg p-4">
+                    <h3 className="font-semibold text-orange-300">Contact</h3>
+                    <p className="text-sm text-gray-400">Manage contact information and social links</p>
+                  </div>
                 </div>
               </div>
-            </>
+            </div>
           )}
 
-          {selectedTab !== 'dashboard' && (
+          {selectedTab === 'skills' && (
+            <SkillsManager />
+          )}
+
+          {selectedTab === 'projects' && (
+            <ProjectsManager />
+          )}
+
+          {selectedTab === 'experience' && (
+            <ExperienceManager />
+          )}
+
+          {selectedTab === 'contact' && (
+            <ContactManager />
+          )}
+
+          {!['dashboard', 'skills', 'projects', 'experience', 'contact'].includes(selectedTab) && (
             <div className="text-center py-20">
               <div className="max-w-md mx-auto">
                 <div className="w-20 h-20 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6">

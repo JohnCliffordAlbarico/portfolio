@@ -1,8 +1,55 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { ExternalLink, Download } from 'lucide-react';
-import { contactData, socialLinks } from '../../../data/portfolioData';
+import { getContactData, contactData as fallbackContactData, socialLinks as fallbackSocialLinks } from '../../../data/portfolioData';
 
 export default function ContactSection() {
+  const [contactData, setContactData] = useState(fallbackContactData);
+  const [socialLinks, setSocialLinks] = useState(fallbackSocialLinks);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const dynamicContactData = await getContactData();
+        setContactData(dynamicContactData.contacts);
+        setSocialLinks(dynamicContactData.socials);
+      } catch (error) {
+        console.error('Failed to fetch contact data:', error);
+        // Keep fallback data if API fails
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {[1, 2].map((i) => (
+            <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="h-6 bg-gray-200 rounded w-1/3 mb-6 animate-pulse"></div>
+              <div className="space-y-4">
+                {[1, 2, 3].map((j) => (
+                  <div key={j} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg animate-pulse">
+                    <div className="bg-gray-200 p-2 rounded-lg w-9 h-9"></div>
+                    <div className="flex-grow space-y-2">
+                      <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
