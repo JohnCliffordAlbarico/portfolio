@@ -44,27 +44,7 @@ export default function OverviewSection() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
-        <div className="space-y-4">
-          {recentActivities.map((activity, idx) => (
-            <div key={idx} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <activity.icon className="w-4 h-4 text-blue-600" />
-              </div>
-              <div className="flex-grow">
-                <p className="text-sm text-gray-900">
-                  <span className="font-medium">{activity.action}</span> {activity.item}
-                </p>
-                <p className="text-xs text-gray-500 flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  {activity.time}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+     
     </div>
   );
 }
