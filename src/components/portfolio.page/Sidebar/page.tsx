@@ -1,4 +1,5 @@
 import { LucideIcon, Code2, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 interface SidebarProps {
   activeSection: string;
@@ -12,8 +13,14 @@ export default function Sidebar({ activeSection, setActiveSection, sidebarItems 
       {/* Sidebar Header */}
       <div className="p-6 border-b border-gray-100 dark:border-gray-700">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-            <Code2 className="w-7 h-7 text-white" />
+          <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg border-2 border-white">
+            <Image
+              src="/images/cliff.jpg"
+              alt="John Clifford M. Albarico"
+              width={48}
+              height={48}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <h2 className="text-lg font-bold text-gray-900 dark:text-white">Portfolio</h2>

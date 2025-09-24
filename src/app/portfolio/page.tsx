@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import cliffLogo from '../../images/cliff.jpg';
+// Using cliff.jpg from public directory
 import Sidebar from '../../components/portfolio.page/Sidebar/page';
 import PortfolioContent from '../../components/portfolio.page/PortfolioContent';
 import ThemeToggle from '../../components/ThemeToggle';
@@ -23,7 +23,7 @@ export default function Home() {
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-lg overflow-hidden">
                 <Image 
-                  src={cliffLogo} 
+                  src="/images/cliff.jpg" 
                   alt="Cliff Logo" 
                   width={40} 
                   height={40} 
@@ -75,7 +75,7 @@ export default function Home() {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg">
                       <Image 
-                        src={cliffLogo} 
+                        src="/images/cliff.jpg" 
                         alt="Cliff Logo" 
                         width={40} 
                         height={40} 
