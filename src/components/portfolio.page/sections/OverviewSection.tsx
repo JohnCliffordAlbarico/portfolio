@@ -2,6 +2,7 @@
 import { User, MapPin, Calendar, Award, Code2, Clock } from 'lucide-react';
 import StatCard from '../Statcard/page';
 import { recentActivities } from '../../../data/portfolioData';
+import Image from 'next/image';
 
 export default function OverviewSection() {
   return (
@@ -16,8 +17,15 @@ export default function OverviewSection() {
       <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <div className="flex-shrink-0 flex justify-center lg:justify-start">
-            <div className="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-              <User className="w-12 h-12 md:w-16 md:h-16 text-white" />
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+              <Image
+                src="/images/cliff.jpg"
+                alt="John Clifford M. Albarico"
+                width={128}
+                height={128}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
           </div>
           <div className="flex-grow text-center lg:text-left">
