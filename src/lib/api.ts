@@ -1,7 +1,7 @@
 // API service functions for portfolio data management
 
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://your-domain.com/api' 
+  ? 'https://johncliffordalbaricoportfolio.onrender.com/api' 
   : '/api';
 
 // Skills API
