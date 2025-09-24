@@ -1,22 +1,49 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { ExternalLink, Download } from 'lucide-react';
-import { getContactData, contactData as fallbackContactData, socialLinks as fallbackSocialLinks } from '../../../data/portfolioData';
+import { ExternalLink, Download, LucideIcon } from 'lucide-react';
+import { contactAPI } from '../../../lib/api';
+import { getIconComponent } from '../../../lib/utils';
+
+interface ContactItem {
+  id: number;
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href: string;
+  type: 'contact' | 'social';
+}
 
 export default function ContactSection() {
-  const [contactData, setContactData] = useState(fallbackContactData);
-  const [socialLinks, setSocialLinks] = useState(fallbackSocialLinks);
+  const [contactData, setContactData] = useState<ContactItem[]>([]);
+  const [socialLinks, setSocialLinks] = useState<ContactItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchContactData = async () => {
       try {
-        const dynamicContactData = await getContactData();
-        setContactData(dynamicContactData.contacts);
-        setSocialLinks(dynamicContactData.socials);
+        const response = await contactAPI.getAll();
+        const contactItems = response.contact || [];
+        
+        const contacts = contactItems
+          .filter((item: any) => item.type === 'contact')
+          .map((item: any) => ({
+            ...item,
+            icon: getIconComponent(item.icon)
+          }));
+        
+        const socials = contactItems
+          .filter((item: any) => item.type === 'social')
+          .map((item: any) => ({
+            ...item,
+            icon: getIconComponent(item.icon)
+          }));
+        
+        setContactData(contacts);
+        setSocialLinks(socials);
       } catch (error) {
         console.error('Failed to fetch contact data:', error);
-        // Keep fallback data if API fails
+        setContactData([]);
+        setSocialLinks([]);
       } finally {
         setLoading(false);
       }

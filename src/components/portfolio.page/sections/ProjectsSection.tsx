@@ -1,20 +1,40 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { LucideIcon } from 'lucide-react';
 import ProjectCard from '../ProjectCard/page';
-import { getProjectsData, projects as fallbackProjects } from '../../../data/portfolioData';
+import { projectsAPI } from '../../../lib/api';
+import { getIconComponent } from '../../../lib/utils';
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tech: string[];
+  status: string;
+  progress: number;
+  github: string;
+  live: string;
+  icon: LucideIcon;
+  statusIcon: LucideIcon;
+}
 
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState(fallbackProjects);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const dynamicProjects = await getProjectsData();
-        setProjects(dynamicProjects);
+        const response = await projectsAPI.getAll();
+        const projectsWithIcons = response.projects.map((project: any) => ({
+          ...project,
+          icon: getIconComponent(project.icon),
+          statusIcon: getIconComponent(project.statusIcon)
+        }));
+        setProjects(projectsWithIcons);
       } catch (error) {
         console.error('Failed to fetch projects:', error);
-        // Keep fallback data if API fails
+        setProjects([]);
       } finally {
         setLoading(false);
       }

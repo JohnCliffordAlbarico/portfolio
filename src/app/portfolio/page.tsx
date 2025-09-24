@@ -7,7 +7,7 @@ import Sidebar from '../../components/portfolio.page/Sidebar/page';
 import PortfolioContent from '../../components/portfolio.page/PortfolioContent';
 import ThemeToggle from '../../components/ThemeToggle';
 import TimeDisplay from '../../components/TimeDisplay';
-import { sidebarItems } from '../../data/portfolioData';
+import { sidebarItems } from '../../lib/utils';
 
 
 export default function Home() {

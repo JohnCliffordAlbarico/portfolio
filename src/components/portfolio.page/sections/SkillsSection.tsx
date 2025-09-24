@@ -1,21 +1,34 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Code2, Sparkles } from 'lucide-react';
+import { Code2, Sparkles, LucideIcon } from 'lucide-react';
 import SkillBar from '../SkillBar/page';
-import { getSkillsData, skillsData as fallbackSkillsData, skillCategories } from '../../../data/portfolioData';
+import { skillsAPI } from '../../../lib/api';
+import { getIconComponent, skillCategories } from '../../../lib/utils';
+
+interface Skill {
+  id: number;
+  name: string;
+  level: number;
+  category: string;
+  icon: LucideIcon;
+}
 
 export default function SkillsSection() {
-  const [skillsData, setSkillsData] = useState(fallbackSkillsData);
+  const [skillsData, setSkillsData] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const dynamicSkills = await getSkillsData();
-        setSkillsData(dynamicSkills);
+        const response = await skillsAPI.getAll();
+        const skillsWithIcons = response.skills.map((skill: any) => ({
+          ...skill,
+          icon: getIconComponent(skill.icon)
+        }));
+        setSkillsData(skillsWithIcons);
       } catch (error) {
         console.error('Failed to fetch skills:', error);
-        // Keep fallback data if API fails
+        setSkillsData([]);
       } finally {
         setLoading(false);
       }

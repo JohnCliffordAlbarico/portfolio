@@ -1,7 +1,7 @@
 'use client';
 import { User, MapPin, Calendar, Award, Code2, Clock } from 'lucide-react';
 import StatCard from '../Statcard/page';
-import { recentActivities } from '../../../data/portfolioData';
+import { recentActivities } from '../../../lib/utils';
 import Image from 'next/image';
 
 export default function OverviewSection() {

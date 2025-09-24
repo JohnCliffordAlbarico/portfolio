@@ -1,20 +1,29 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { GraduationCap, Briefcase } from 'lucide-react';
-import { getExperienceData, experienceData as fallbackExperienceData } from '../../../data/portfolioData';
+import { experienceAPI } from '../../../lib/api';
+
+interface Experience {
+  id?: number;
+  title: string;
+  organization: string;
+  period: string;
+  description: string;
+  type: 'education' | 'experience';
+}
 
 export default function ExperienceSection() {
-  const [experienceData, setExperienceData] = useState(fallbackExperienceData);
+  const [experienceData, setExperienceData] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchExperience = async () => {
       try {
-        const dynamicExperience = await getExperienceData();
-        setExperienceData(dynamicExperience);
+        const response = await experienceAPI.getAll();
+        setExperienceData(response.experience);
       } catch (error) {
         console.error('Failed to fetch experience:', error);
-        // Keep fallback data if API fails
+        setExperienceData([]);
       } finally {
         setLoading(false);
       }
