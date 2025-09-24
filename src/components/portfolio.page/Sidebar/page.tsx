@@ -29,7 +29,7 @@ export default function Sidebar({ activeSection, setActiveSection, sidebarItems 
       {/* Navigation */}
       <div className="p-6">
         <nav className="space-y-3">
-          {sidebarItems.map((item, index) => (
+          {sidebarItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveSection(item.id)}

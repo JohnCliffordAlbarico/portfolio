@@ -89,7 +89,7 @@ const ContactManager = () => {
     }
   };
 
-  const getIconComponent = (iconName: string) => {
+  const getIconComponent = (iconName: string): React.ComponentType<{ className?: string; size?: number }> => {
     const iconOption = iconOptions.find(option => option.name === iconName);
     return iconOption ? iconOption.component : Mail;
   };
@@ -231,8 +231,8 @@ interface ContactItemProps {
   onSave: (data: Partial<Contact>) => void;
   onCancel: () => void;
   onDelete: () => void;
-  iconOptions: { name: string; component: any }[];
-  getIconComponent: (iconName: string) => any;
+  iconOptions: { name: string; component: React.ComponentType<{ className?: string; size?: number }> }[];
+  getIconComponent: (iconName: string) => React.ComponentType<{ className?: string; size?: number }>;
 }
 
 const ContactItem = ({ contact, isEditing, onEdit, onSave, onCancel, onDelete, iconOptions, getIconComponent }: ContactItemProps) => {

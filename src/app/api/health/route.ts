@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const startTime = Date.now();
     
@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Optional: Add HEAD method for simple ping checks
-export async function HEAD(request: NextRequest) {
+export async function HEAD() {
   return new NextResponse(null, {
     status: 200,
     headers: {

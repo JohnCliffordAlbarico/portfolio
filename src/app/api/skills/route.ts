@@ -80,7 +80,13 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const updateData: any = {};
+    const updateData: Partial<{
+      name: string;
+      level: number;
+      category: string;
+      icon: string;
+      updated_at: string;
+    }> = {};
     if (name !== undefined) updateData.name = name;
     if (level !== undefined) updateData.level = level;
     if (category !== undefined) updateData.category = category;

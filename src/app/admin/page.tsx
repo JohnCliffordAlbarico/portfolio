@@ -1,18 +1,6 @@
 "use client";
 import { 
-  BarChart3, 
-  Users, 
-  ShoppingCart, 
-  DollarSign, 
-  TrendingUp, 
-  Activity,
   Package,
-  FileText,
-  Calendar,
-  Eye,
-  Edit,
-  Trash2,
-  Plus,
   LogOut,
   Loader2
 } from 'lucide-react';

@@ -1,12 +1,6 @@
 "use client";
 import { 
   Home, 
-  Users, 
-  Package, 
-  ShoppingCart, 
-  BarChart3, 
-  FileText, 
-  Calendar, 
   Settings,
   Code2,
   Briefcase,

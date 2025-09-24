@@ -108,7 +108,18 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const updateData: any = {};
+    const updateData: Partial<{
+      title: string;
+      description: string;
+      tech: string[];
+      status: string;
+      progress: number;
+      github: string;
+      live: string;
+      icon: string;
+      status_icon: string;
+      updated_at: string;
+    }> = {};
     if (title !== undefined) updateData.title = title;
     if (description !== undefined) updateData.description = description;
     if (tech !== undefined) updateData.tech = Array.isArray(tech) ? tech : [tech];
@@ -117,7 +128,7 @@ export async function PUT(request: NextRequest) {
     if (github !== undefined) updateData.github = github;
     if (live !== undefined) updateData.live = live;
     if (icon !== undefined) updateData.icon = icon;
-    if (statusIcon !== undefined) updateData.statusIcon = statusIcon;
+    if (statusIcon !== undefined) updateData.status_icon = statusIcon;
     updateData.updated_at = new Date().toISOString();
 
     const { data: project, error } = await supabaseAdmin

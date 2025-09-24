@@ -220,7 +220,6 @@ const ProjectsManager = () => {
             onDelete={() => handleDelete(project.id)}
             statusOptions={statusOptions}
             iconOptions={iconOptions}
-            statusIconOptions={statusIconOptions}
           />
         ))}
       </div>
@@ -237,10 +236,9 @@ interface ProjectCardProps {
   onDelete: () => void;
   statusOptions: string[];
   iconOptions: string[];
-  statusIconOptions: string[];
 }
 
-const ProjectCard = ({ project, isEditing, onEdit, onSave, onCancel, onDelete, statusOptions, iconOptions, statusIconOptions }: ProjectCardProps) => {
+const ProjectCard = ({ project, isEditing, onEdit, onSave, onCancel, onDelete, statusOptions, iconOptions }: ProjectCardProps) => {
   const [editData, setEditData] = useState({
     title: project.title,
     description: project.description,

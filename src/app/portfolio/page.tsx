@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { Code2, Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import cliffLogo from '../../images/cliff.jpg';
 import Sidebar from '../../components/portfolio.page/Sidebar/page';

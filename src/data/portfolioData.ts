@@ -9,8 +9,6 @@ import {
   Github, 
   Linkedin, 
   Globe,
-  ExternalLink,
-  Download,
   MessageCircle,
   Award,
   BookOpen,
@@ -41,8 +39,39 @@ import {
 } from 'lucide-react';
 import { skillsAPI, projectsAPI, experienceAPI, contactAPI } from '@/lib/api';
 
+// Type definitions
+interface ApiSkill {
+  id: number;
+  name: string;
+  level: number;
+  category: string;
+  icon: string;
+}
+
+interface ApiProject {
+  id: number;
+  title: string;
+  description: string;
+  tech: string[];
+  status: string;
+  progress: number;
+  github: string;
+  live: string;
+  icon: string;
+  statusIcon: string;
+}
+
+interface ApiContactItem {
+  id: number;
+  icon: string;
+  label: string;
+  value: string;
+  href: string;
+  type: 'contact' | 'social';
+}
+
 // Icon mapping for dynamic icon resolution
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: React.ComponentType<{ className?: string; size?: number }> } = {
   Terminal, Coffee, Code, Hexagon, FileText, Palette, Circle, Triangle, Square, 
   Rocket, Diamond, Database, Cloud, Zap, Shield, Eye, GitBranch, Globe, Monitor, 
   Server, Smartphone, CheckCircle, PlayCircle, PauseCircle, Mail, Phone, MapPin, 
@@ -90,7 +119,7 @@ const fallbackSkillsData = [
 export const getSkillsData = async () => {
   try {
     const response = await skillsAPI.getAll();
-    return response.skills.map((skill: any) => ({
+    return response.skills.map((skill: ApiSkill) => ({
       ...skill,
       icon: getIconComponent(skill.icon)
     }));
@@ -159,7 +188,7 @@ const fallbackProjects = [
 export const getProjectsData = async () => {
   try {
     const response = await projectsAPI.getAll();
-    return response.projects.map((project: any) => ({
+    return response.projects.map((project: ApiProject) => ({
       ...project,
       icon: getIconComponent(project.icon),
       statusIcon: getIconComponent(project.statusIcon)
@@ -255,15 +284,15 @@ export const getContactData = async () => {
     const contactItems = response.contact || [];
     
     const contacts = contactItems
-      .filter((item: any) => item.type === 'contact')
-      .map((item: any) => ({
+      .filter((item: ApiContactItem) => item.type === 'contact')
+      .map((item: ApiContactItem) => ({
         ...item,
         icon: getIconComponent(item.icon)
       }));
     
     const socials = contactItems
-      .filter((item: any) => item.type === 'social')
-      .map((item: any) => ({
+      .filter((item: ApiContactItem) => item.type === 'social')
+      .map((item: ApiContactItem) => ({
         ...item,
         icon: getIconComponent(item.icon)
       }));

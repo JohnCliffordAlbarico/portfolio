@@ -82,7 +82,14 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const updateData: any = {};
+    const updateData: Partial<{
+      title: string;
+      organization: string;
+      period: string;
+      description: string;
+      type: string;
+      updated_at: string;
+    }> = {};
     if (title !== undefined) updateData.title = title;
     if (organization !== undefined) updateData.organization = organization;
     if (period !== undefined) updateData.period = period;

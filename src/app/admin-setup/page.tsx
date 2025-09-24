@@ -67,7 +67,7 @@ const AdminSetup = () => {
         setStatus('error');
         setMessage(data.error || 'Failed to create admin account');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setMessage('Network error. Please try again.');
     }

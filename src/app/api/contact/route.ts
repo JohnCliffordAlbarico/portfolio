@@ -82,7 +82,14 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const updateData: any = {};
+    const updateData: Partial<{
+      icon: string;
+      label: string;
+      value: string;
+      href: string;
+      type: string;
+      updated_at: string;
+    }> = {};
     if (icon !== undefined) updateData.icon = icon;
     if (label !== undefined) updateData.label = label;
     if (value !== undefined) updateData.value = value;
