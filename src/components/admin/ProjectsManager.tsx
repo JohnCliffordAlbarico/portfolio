@@ -187,6 +187,15 @@ const ProjectsManager = () => {
                 <option key={icon} value={icon}>{icon}</option>
               ))}
             </select>
+            <select
+              value={formData.statusIcon}
+              onChange={(e) => setFormData({ ...formData, statusIcon: e.target.value })}
+              className="bg-slate-700/50 border border-white/10 rounded-lg px-4 py-2 text-white"
+            >
+              {statusIconOptions.map(icon => (
+                <option key={icon} value={icon}>{icon}</option>
+              ))}
+            </select>
           </div>
           <div className="flex gap-2 mt-4">
             <button
@@ -220,6 +229,7 @@ const ProjectsManager = () => {
             onDelete={() => handleDelete(project.id)}
             statusOptions={statusOptions}
             iconOptions={iconOptions}
+            statusIconOptions={statusIconOptions}
           />
         ))}
       </div>
@@ -236,9 +246,10 @@ interface ProjectCardProps {
   onDelete: () => void;
   statusOptions: string[];
   iconOptions: string[];
+  statusIconOptions: string[];
 }
 
-const ProjectCard = ({ project, isEditing, onEdit, onSave, onCancel, onDelete, statusOptions, iconOptions }: ProjectCardProps) => {
+const ProjectCard = ({ project, isEditing, onEdit, onSave, onCancel, onDelete, statusOptions, iconOptions, statusIconOptions }: ProjectCardProps) => {
   const [editData, setEditData] = useState({
     title: project.title,
     description: project.description,
@@ -324,6 +335,15 @@ const ProjectCard = ({ project, isEditing, onEdit, onSave, onCancel, onDelete, s
             className="bg-slate-700/50 border border-white/10 rounded-lg px-4 py-2 text-white"
           >
             {iconOptions.map(icon => (
+              <option key={icon} value={icon}>{icon}</option>
+            ))}
+          </select>
+          <select
+            value={editData.statusIcon}
+            onChange={(e) => setEditData({ ...editData, statusIcon: e.target.value })}
+            className="bg-slate-700/50 border border-white/10 rounded-lg px-4 py-2 text-white"
+          >
+            {statusIconOptions.map(icon => (
               <option key={icon} value={icon}>{icon}</option>
             ))}
           </select>

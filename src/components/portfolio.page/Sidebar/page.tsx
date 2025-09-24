@@ -1,4 +1,4 @@
-import { LucideIcon, Code2, Sparkles } from 'lucide-react';
+import { LucideIcon, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 
 interface SidebarProps {

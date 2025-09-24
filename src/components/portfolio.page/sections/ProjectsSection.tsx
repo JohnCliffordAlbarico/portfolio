@@ -26,7 +26,20 @@ export default function ProjectsSection() {
     const fetchProjects = async () => {
       try {
         const response = await projectsAPI.getAll();
-        const projectsWithIcons = response.projects.map((project: any) => ({
+        interface ApiProject {
+          id: number;
+          title: string;
+          description: string;
+          tech: string[];
+          status: string;
+          progress: number;
+          github: string;
+          live: string;
+          icon: string;
+          statusIcon: string;
+        }
+
+        const projectsWithIcons = response.projects.map((project: ApiProject) => ({
           ...project,
           icon: getIconComponent(project.icon),
           statusIcon: getIconComponent(project.statusIcon)

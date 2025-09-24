@@ -21,7 +21,15 @@ export default function SkillsSection() {
     const fetchSkills = async () => {
       try {
         const response = await skillsAPI.getAll();
-        const skillsWithIcons = response.skills.map((skill: any) => ({
+        interface ApiSkill {
+          id: number;
+          name: string;
+          level: number;
+          category: string;
+          icon: string;
+        }
+
+        const skillsWithIcons = response.skills.map((skill: ApiSkill) => ({
           ...skill,
           icon: getIconComponent(skill.icon)
         }));

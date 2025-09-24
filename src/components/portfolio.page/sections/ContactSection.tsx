@@ -24,16 +24,25 @@ export default function ContactSection() {
         const response = await contactAPI.getAll();
         const contactItems = response.contact || [];
         
+        interface ApiContactItem {
+          id: number;
+          icon: string;
+          label: string;
+          value: string;
+          href: string;
+          type: 'contact' | 'social';
+        }
+
         const contacts = contactItems
-          .filter((item: any) => item.type === 'contact')
-          .map((item: any) => ({
+          .filter((item: ApiContactItem) => item.type === 'contact')
+          .map((item: ApiContactItem) => ({
             ...item,
             icon: getIconComponent(item.icon)
           }));
         
         const socials = contactItems
-          .filter((item: any) => item.type === 'social')
-          .map((item: any) => ({
+          .filter((item: ApiContactItem) => item.type === 'social')
+          .map((item: ApiContactItem) => ({
             ...item,
             icon: getIconComponent(item.icon)
           }));
