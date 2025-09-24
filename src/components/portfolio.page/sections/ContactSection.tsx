@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { ExternalLink, Download, LucideIcon } from 'lucide-react';
+import { ExternalLink, LucideIcon, ArrowUpRight } from 'lucide-react';
 import { contactAPI } from '../../../lib/api';
 import { getIconComponent } from '../../../lib/utils';
 
@@ -93,14 +93,24 @@ export default function ContactSection() {
           <h3 className="text-lg font-semibold text-gray-900 mb-6">Get In Touch</h3>
           <div className="space-y-4">
             {contactData.map((contact, idx) => (
-              <a key={idx} href={contact.href} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors group">
-                <div className="bg-white p-2 rounded-lg group-hover:bg-blue-100 transition-colors">
-                  <contact.icon className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+              <a 
+                key={idx} 
+                href={contact.href} 
+                className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-blue-50 hover:shadow-md transition-all duration-200 group cursor-pointer transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                target={contact.href.startsWith('http') ? '_blank' : '_self'}
+                rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={`Contact via ${contact.label}: ${contact.value}`}
+              >
+                <div className="bg-white p-2 rounded-lg group-hover:bg-blue-100 transition-all duration-200 group-hover:shadow-sm">
+                  <contact.icon className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{contact.label}</p>
-                  <p className="text-sm text-gray-600">{contact.value}</p>
+                <div className="flex-grow">
+                  <p className="text-sm font-medium text-gray-900 group-hover:text-blue-900 transition-colors duration-200">{contact.label}</p>
+                  <p className="text-sm text-gray-600 group-hover:text-blue-700 transition-colors duration-200">{contact.value}</p>
                 </div>
+                {contact.href.startsWith('http') && (
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                )}
               </a>
             ))}
           </div>
@@ -110,24 +120,24 @@ export default function ContactSection() {
           <h3 className="text-lg font-semibold text-gray-900 mb-6">Social Links</h3>
           <div className="space-y-4">
             {socialLinks.map((social, idx) => (
-              <a key={idx} href={social.href} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors group">
-                <div className="bg-white p-2 rounded-lg group-hover:bg-blue-100 transition-colors">
-                  <social.icon className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+              <a 
+                key={idx} 
+                href={social.href} 
+                className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-blue-50 hover:shadow-md transition-all duration-200 group cursor-pointer transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${social.label}: ${social.value}`}
+              >
+                <div className="bg-white p-2 rounded-lg group-hover:bg-blue-100 transition-all duration-200 group-hover:shadow-sm">
+                  <social.icon className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{social.label}</p>
-                  <p className="text-sm text-gray-600">{social.value}</p>
+                <div className="flex-grow">
+                  <p className="text-sm font-medium text-gray-900 group-hover:text-blue-900 transition-colors duration-200">{social.label}</p>
+                  <p className="text-sm text-gray-600 group-hover:text-blue-700 transition-colors duration-200">{social.value}</p>
                 </div>
-                <ExternalLink className="w-4 h-4 text-gray-400 ml-auto group-hover:text-blue-600" />
+                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             ))}
-          </div>
-          
-          <div className="mt-6">
-            <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-              <Download className="w-4 h-4" />
-              Download Resume
-            </button>
           </div>
         </div>
       </div>

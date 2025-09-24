@@ -65,10 +65,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <Github className="w-4 h-4" />
           Code
         </a>
-        <a href={project.live} className="flex items-center gap-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+        {/* Temporarily commented out Live Demo button */}
+        {/* <a href={project.live} className="flex items-center gap-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
           <ExternalLink className="w-4 h-4" />
           Live Demo
-        </a>
+        </a> */}
       </div>
     </div>
   );
